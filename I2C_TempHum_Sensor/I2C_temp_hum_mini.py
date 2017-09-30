@@ -64,7 +64,7 @@ class th02:
 	SUCCESS = 0
 	
 	def getTemperature(self):
-		bus.write_i2c_word_data(self.ADDRESS, self.TH02_REG_CONFIG, self.TH02_CMD_MEASURE_TEMP)
+		bus.write_word_data(self.ADDRESS, self.TH02_REG_CONFIG, self.TH02_CMD_MEASURE_TEMP)
 		
 		while 1:
 			status=self.getStatus()
@@ -81,7 +81,7 @@ class th02:
 		return (temperature/32.0)-50.0
 		
 	def getHumidity(self):
-		bus.write_i2c_word_data(self.ADDRESS, self.TH02_REG_CONFIG, self.TH02_CMD_MEASURE_HUMI)
+		bus.write_word_data(self.ADDRESS, self.TH02_REG_CONFIG, self.TH02_CMD_MEASURE_HUMI)
 		
 		while 1:
 			status=self.getStatus()
