@@ -77,7 +77,7 @@ class th02:
 			print(t_raw)
 		#temperature = (t_raw[1]<<8|t_raw[2])>>2
 		#((t_raw[1] << 8) & 0xFF00) + (t_raw[2] >> 8)
-		temperature = ((t_raw << 8) & 0xFF00) + (t_raw >> 8) 
+		temperature = (t_raw<<8|t_raw)>>2
 		return (temperature/32.0)-50.0
 		
 	def getHumidity(self):
@@ -89,10 +89,10 @@ class th02:
 				print("st:",status)
 			if status:
 				break
-		t_raw=bus.read_i2c_block_data(self.ADDRESS, self.TH02_REG_DATA_H,3)
+		t_raw=bus.read_word_data(self.ADDRESS, self.TH02_REG_DATA_H)
 		if debug:
 			print(t_raw)
-		humidity = (t_raw[1]<<8|t_raw[2])>>2
+		humidity = (t_raw<<8|t_raw)>>2
 		return (humidity/16.0)-24.0
 		
 	def getStatus(self):
