@@ -75,7 +75,7 @@ class th02:
 		if debug:
 			print(t_raw)
 		#temperature = (t_raw[1]<<8|t_raw[2])>>2
-		temperature = t_raw[1] << 2
+		temperature = t_raw[1] << 8
 		return (temperature/32.0)-50.0
 		
 	def getHumidity(self):
