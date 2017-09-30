@@ -20,7 +20,7 @@ TSL2561_Channel0H = 0x8D
 TSL2561_Channel1L = 0x8E
 TSL2561_Channel1H = 0x8F
 
-TSL2561_Address = 0x29 #device address
+TSL2561_Address = 0x60 #device address
 
 LUX_SCALE = 14 # scale by 2^14
 RATIO_SCALE = 9 # scale ratio by 2^9
