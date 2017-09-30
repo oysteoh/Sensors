@@ -38,6 +38,7 @@ THE SOFTWARE.
 #################################################################################################################################################
 import time,sys
 import RPi.GPIO as GPIO
+
 import smbus
 
 debug = 0
@@ -75,7 +76,8 @@ class th02:
 		if debug:
 			print(t_raw)
 		#temperature = (t_raw[1]<<8|t_raw[2])>>2
-		temperature = (t_raw[1]<<8|t_raw[2]>>2)
+		#((t_raw[1] << 8) & 0xFF00) + (t_raw[2] >> 8)
+		temperature = ((t_raw[1] << 8) & 0xFF00) + (t_raw[2] >> 8)
 		return (temperature/32.0)-50.0
 		
 	def getHumidity(self):
