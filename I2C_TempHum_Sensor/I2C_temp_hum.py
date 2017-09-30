@@ -40,7 +40,7 @@ import time,sys
 import RPi.GPIO as GPIO
 import smbus
 
-debug = 0
+debug = 1
 # use the bus that matches your raspi version
 bus = smbus.SMBus(1)
 
