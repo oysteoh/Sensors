@@ -38,7 +38,6 @@ THE SOFTWARE.
 #################################################################################################################################################
 import time,sys
 import RPi.GPIO as GPIO
-
 import smbus
 
 debug = 0
@@ -64,8 +63,7 @@ class th02:
 	SUCCESS = 0
 	
 	def getTemperature(self):
-		cmd = self.TH02_CMD_MEASURE_TEMP & 0xFFFF
-		bus.write_word_data(self.ADDRESS, self.TH02_REG_CONFIG, cmd)
+		bus.write_i2c_block_data(self.ADDRESS, self.TH02_REG_CONFIG, self.TH02_CMD_MEASURE_TEMP)
 		
 		while 1:
 			status=self.getStatus()
@@ -73,17 +71,14 @@ class th02:
 				print("st:",status)
 			if status:
 				break
-		t_raw=bus.read_word_data(self.ADDRESS, self.TH02_REG_DATA_H) & 0xFFFF
+		t_raw=bus.read_i2c_block_data(self.ADDRESS, self.TH02_REG_DATA_H,3)
 		if debug:
 			print(t_raw)
-		#temperature = (t_raw[1]<<8|t_raw[2])>>2
-		#((t_raw[1] << 8) & 0xFF00) + (t_raw[2] >> 8)
-		temperature = ((t_raw << 8) & 0xFF00) + (t_raw >> 8) 
+		temperature = t=t_raw[0]<<16|t_raw[1]<<8|t_raw[2]
 		return (temperature/32.0)-50.0
 		
 	def getHumidity(self):
-		cmd = self.TH02_CMD_MEASURE_HUMI & 0xFFFF
-		bus.write_word_data(self.ADDRESS, self.TH02_REG_CONFIG, cmd)
+		bus.write_i2c_block_data(self.ADDRESS, self.TH02_REG_CONFIG, self.TH02_CMD_MEASURE_HUMI)
 		
 		while 1:
 			status=self.getStatus()
@@ -91,10 +86,10 @@ class th02:
 				print("st:",status)
 			if status:
 				break
-		t_raw=bus.read_word_data(self.ADDRESS, self.TH02_REG_DATA_H) & 0xFFFF
+		t_raw=bus.read_i2c_block_data(self.ADDRESS, self.TH02_REG_DATA_H,3)
 		if debug:
 			print(t_raw)
-		humidity = ((t_raw << 8) & 0xFF00) + (t_raw >> 8) 
+		humidity = t=t_raw[0]<<16|t_raw[1]<<8|t_raw[2]
 		return (humidity/16.0)-24.0
 		
 	def getStatus(self):
