@@ -72,7 +72,7 @@ class th02:
 				print("st:",status)
 			if status:
 				break
-		t_raw=bus.read_word_data(self.ADDRESS, self.TH02_REG_DATA_H,3)
+		t_raw=bus.read_word_data(self.ADDRESS, self.TH02_REG_DATA_H)
 		if debug:
 			print(t_raw)
 		#temperature = (t_raw[1]<<8|t_raw[2])>>2
