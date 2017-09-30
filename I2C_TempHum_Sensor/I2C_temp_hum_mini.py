@@ -97,7 +97,7 @@ class th02:
 		status=bus.read_i2c_block_data(self.ADDRESS, self.TH02_REG_STATUS,1)
 		if debug:
 			print(status)
-		if status[0] & self.TH02_STATUS_RDY_MASK != 1:
+		if status & self.TH02_STATUS_RDY_MASK != 1:
 			return 1
 		else:
 			return 0
