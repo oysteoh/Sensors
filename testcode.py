@@ -105,7 +105,7 @@ def readRegister(address):
 	try:
 		byteval = i2c.readU8(address)
 
-		sleep(cooldown_time)
+		time.sleep(cooldown_time)
 		if (debug):
 			print("TSL2561.readRegister: returned 0x%02X from reg 0x%02X" % (byteval, address))
 		return byteval
@@ -118,12 +118,12 @@ def writeRegister(address, val):
 	try:
 		i2c.write8(address, val)
 
-		sleep(cooldown_time)
+		time.sleep(cooldown_time)
 		if (debug):
 			print("TSL2561.writeRegister: wrote 0x%02X to reg 0x%02X" % (val, address))
 	except IOError:
 
-		sleep(cooldown_time)
+		time.sleep(cooldown_time)
 		print("TSL2561.writeRegister: error writing byte to reg 0x%02X" % address)
 		return -1
 
@@ -161,7 +161,7 @@ def readLux():
 	channel0 = (ch0_high<<8) | ch0_low
 	channel1 = (ch1_high<<8) | ch1_low
 
-	sleep(cooldown_time)
+	time.sleep(cooldown_time)
 	if debug:
 		print("TSL2561.readVisibleLux: channel 0 = %i, channel 1 = %i [gain=%ix, timing=%ims]" % (channel0, channel1, gain_m, timing_ms))
 
@@ -173,7 +173,7 @@ def readVisibleLux():
 
 	if channel0 < 500 and timing == 0:
 		timing = 1
-		sleep(cooldown_time)
+		time.sleep(cooldown_time)
 		if debug:
 			print("TSL2561.readVisibleLux: too dark. Increasing integration time from 13.7ms to 101ms")
 		setTintAndGain()
@@ -181,7 +181,7 @@ def readVisibleLux():
 
 	if channel0 < 500 and timing == 1:
 		timing = 2
-		sleep(cooldown_time)
+		time.sleep(cooldown_time)
 		if debug:
 			print("TSL2561.readVisibleLux: too dark. Increasing integration time from 101ms to 402ms")
 		setTintAndGain()
@@ -189,7 +189,7 @@ def readVisibleLux():
 
 	if channel0 < 500 and timing == 2 and gain == 0:
 		gain = 1
-		sleep(cooldown_time)
+		time.sleep(cooldown_time)
 		if debug:
 			print("TSL2561.readVisibleLux: too dark. Setting high gain")
 		setTintAndGain()
@@ -197,7 +197,7 @@ def readVisibleLux():
 
 	if (channel0 > 20000 or channel1 > 20000) and timing == 2 and gain == 1:
 		gain = 0
-		sleep(cooldown_time)
+		time.sleep(cooldown_time)
 		if debug:
 			print("TSL2561.readVisibleLux: enough light. Setting low gain")
 		setTintAndGain()
@@ -205,7 +205,7 @@ def readVisibleLux():
 
 	if (channel0 > 20000 or channel1 > 20000) and timing == 2:
 		timing = 1
-		sleep(cooldown_time)
+		time.sleep(cooldown_time)
 		if debug:
 			print("TSL2561.readVisibleLux: enough light. Reducing integration time from 402ms to 101ms")
 		setTintAndGain()
@@ -213,7 +213,7 @@ def readVisibleLux():
 
 	if (channel0 > 10000 or channel1 > 10000) and timing == 1:
 		timing = 0
-		sleep(cooldown_time)
+		time.sleep(cooldown_time)
 		if debug:
 			print("TSL2561.readVisibleLux: enough light. Reducing integration time from 101ms to 13.7ms")
 		setTintAndGain()
@@ -288,7 +288,7 @@ def calculateLux(ch0, ch1):
 	temp += (1<<(LUX_SCALE-1))
 	# strip off fractional portion
 	lux = temp>>LUX_SCALE
-	sleep(cooldown_time)
+	time.sleep(cooldown_time)
 	if debug:
 		print("TSL2561.calculateLux: %i" % lux)
 
