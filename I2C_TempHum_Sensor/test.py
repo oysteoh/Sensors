@@ -38,10 +38,10 @@ THE SOFTWARE.
 # NOTE:
 # The software for this sensor is still in development and might make your GrovePi unuable as long as this sensor is connected with the GrovePi
 #################################################################################################################################################
-import grove_i2c_temp_hum_mini
+import I2C_temp_hum_mini
 import time
 
-t= grove_i2c_temp_hum_mini.th02()
+t= I2C_temp_hum_mini.th02()
 while True:
 	print("Temp: %.2fC\tHumidity:%.2f" %(t.getTemperature(),t.getHumidity()),"%") 
 	time.sleep(.5)
