@@ -35,7 +35,7 @@ import I2C_sunlight_sensor
 # on the Pi's revision.
 
 
-sensor = SI1145.SI1145()
+sensor = I2C_sunlight_sensor.SI1145()
 
 print('Press Cntrl + Z to stop')
 print('')
