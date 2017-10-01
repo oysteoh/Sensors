@@ -26,27 +26,33 @@
 #logging.basicConfig(level=logging.DEBUG)
 
 import time
-import SI1145
+import SDL_Pi_SI1145 
+import SI1145Lux
 
 # Default constructor will pick a default I2C bus.
 #
 # For the Raspberry Pi this means you should hook up to the only exposed I2C bus
 # from the main GPIO header and the library will figure out the bus number based
 # on the Pi's revision.
+#
+# For the Beaglebone Black the library will assume bus 1 by default, which is
+# exposed with SCL = P9_19 and SDA = P9_20.
 
+sensor = SDL_Pi_SI1145.SDL_Pi_SI1145()
 
-sensor = SI1145.SI1145()
-
-print('Press Cntrl + Z to stop')
-print('')
+print 'Press Cntrl + Z to cancel'
 
 while True:
         vis = sensor.readVisible()
         IR = sensor.readIR()
         UV = sensor.readUV()
+        IR_Lux = SI1145Lux.SI1145_IR_to_Lux(IR)
+        vis_Lux = SI1145Lux.SI1145_VIS_to_Lux(vis)
         uvIndex = UV / 100.0
-        print('Vis:             ' + str(vis))
-        print('IR:              ' + str(IR))
-        print('UV Index:        ' + str(uvIndex))
-        print('')
-        time.sleep(1)
+        print 'Vis:             ' + str(vis)
+        print 'IR:              ' + str(IR)
+        print 'Vis Lux:             ' + str(vis_Lux)
+        print 'IR Lux:              ' + str(IR_Lux)
+        print 'UV Index:        ' + str(uvIndex)
+
+        time.sleep(5)
