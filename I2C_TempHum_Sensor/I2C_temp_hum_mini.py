@@ -4,7 +4,7 @@
 #
 # The GrovePi connects the Raspberry Pi and Grove sensors.  You can learn more about GrovePi here:  http://www.dexterindustries.com/GrovePi
 #
-# Have a question about this library?  Ask on the forums here:  http://forum.dexterindustries.com/c/grovepi
+# Have a question about this library?  Ask on the forums here:  http://www.dexterindustries.com/forum/?forum=grovepi
 #
 '''
 ## License
@@ -12,7 +12,7 @@
 The MIT License (MIT)
 
 GrovePi for the Raspberry Pi: an open source platform for connecting Grove Sensors to the Raspberry Pi.
-Copyright (C) 2017  Dexter Industries
+Copyright (C) 2015  Dexter Industries
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -42,8 +42,11 @@ import smbus
 
 debug = 0
 # use the bus that matches your raspi version
-bus = smbus.SMBus(1)
-
+rev = GPIO.RPI_REVISION
+if rev == 2 or rev == 3:
+    bus = smbus.SMBus(1)
+else:
+    bus = smbus.SMBus(0)
 
 class th02:
 	
@@ -63,34 +66,40 @@ class th02:
 	SUCCESS = 0
 	
 	def getTemperature(self):
-		bus.write_i2c_block_data(self.ADDRESS, self.TH02_REG_CONFIG, self.TH02_CMD_MEASURE_TEMP)
-		
-		while 1:
-			status=self.getStatus()
+		try:
+			bus.write_i2c_block_data(self.ADDRESS, self.TH02_REG_CONFIG, self.TH02_CMD_MEASURE_TEMP)
+			while 1:
+				status=self.getStatus()
+				if debug:
+					print("st:",status)
+				if status:
+					break
+			t_raw=bus.read_i2c_block_data(self.ADDRESS, self.TH02_REG_DATA_H,3)
 			if debug:
-				print("st:",status)
-			if status:
-				break
-		t_raw=bus.read_i2c_block_data(self.ADDRESS, self.TH02_REG_DATA_H,3)
-		if debug:
-			print(t_raw)
-		temperature = (t_raw[1]<<8|t_raw[2])>>2
-		return (temperature/32.0)-50.0
+				print(t_raw)
+			temperature = (t_raw[1]<<8|t_raw[2])>>2
+			return (temperature/32.0)-50.0
+		except Exception, e:
+			print(str(e))
+			return -1.0
 		
 	def getHumidity(self):
-		bus.write_i2c_block_data(self.ADDRESS, self.TH02_REG_CONFIG, self.TH02_CMD_MEASURE_HUMI)
-		
-		while 1:
-			status=self.getStatus()
+		try:
+			bus.write_i2c_block_data(self.ADDRESS, self.TH02_REG_CONFIG, self.TH02_CMD_MEASURE_HUMI)
+			while 1:
+				status=self.getStatus()
+				if debug:
+					print("st:",status)
+				if status:
+					break
+			t_raw=bus.read_i2c_block_data(self.ADDRESS, self.TH02_REG_DATA_H,3)
 			if debug:
-				print("st:",status)
-			if status:
-				break
-		t_raw=bus.read_i2c_block_data(self.ADDRESS, self.TH02_REG_DATA_H,3)
-		if debug:
-			print(t_raw)
-		temperature = (t_raw[1]<<8|t_raw[2])>>4
-		return (temperature/16.0)-24.0
+				print(t_raw)
+			temperature = (t_raw[1]<<8|t_raw[2])>>4
+			return (temperature/16.0)-24.0
+		except Exception, e:
+			print(str(e))
+			return -1.0
 		
 	def getStatus(self):
 		status=bus.read_i2c_block_data(self.ADDRESS, self.TH02_REG_STATUS,1)
@@ -100,9 +109,3 @@ class th02:
 			return 1
 		else:
 			return 0
-
-if __name__ == "__main__":		
-	t= th02()
-	while True:
-		print(t.getTemperature(),t.getHumidity())
-		time.sleep(.5)
