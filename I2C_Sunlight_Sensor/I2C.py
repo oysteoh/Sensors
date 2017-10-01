@@ -21,11 +21,14 @@
 # THE SOFTWARE.
 import logging
 import subprocess
-
+import RPi.GPIO as GPIO
 import smbus
 
-import Platform 
-
+rev = GPIO.RPI_REVISION
+if rev == 2 or rev == 3:
+    bus = smbus.SMBus(1)
+else:
+    bus = smbus.SMBus(0)
 
 def reverseByteOrder(data):
     """Reverses the byte order of an int (16-bit) or long (32-bit) value."""
@@ -37,52 +40,12 @@ def reverseByteOrder(data):
         data >>= 8
     return val
 
-def get_default_bus():
-    """Return the default bus number based on the device platform.  For a
-    Raspberry Pi either bus 0 or 1 (based on the Pi revision) will be returned.
-    For a Beaglebone Black the first user accessible bus, 1, will be returned.
-    """
-    plat = Platform.platform_detect()
-    if plat == Platform.RASPBERRY_PI:
-        if Platform.pi_revision() == 1:
-            # Revision 1 Pi uses I2C bus 0.
-            return 0
-        else:
-            # Revision 2 Pi uses I2C bus 1.
-            return 1
-    elif plat == Platform.BEAGLEBONE_BLACK:
-        # Beaglebone Black has multiple I2C buses, default to 1 (P9_19 and P9_20).
-        return 1
-    else:
-        raise RuntimeError('Could not determine default I2C bus for platform.')
-
 def get_i2c_device(address, busnum=None, **kwargs):
     """Return an I2C device for the specified address and on the specified bus.
     If busnum isn't specified, the default I2C bus for the platform will attempt
     to be detected.
-    """
-    if busnum is None:
-        busnum = get_default_bus()
+    """    
     return Device(address, busnum, **kwargs)
-
-def require_repeated_start():
-    """Enable repeated start conditions for I2C register reads.  This is the
-    normal behavior for I2C, however on some platforms like the Raspberry Pi
-    there are bugs which disable repeated starts unless explicitly enabled with
-    this function.  See this thread for more details:
-      http://www.raspberrypi.org/forums/viewtopic.php?f=44&t=15840
-    """
-    plat = Platform.platform_detect()
-    if plat == Platform.RASPBERRY_PI:
-        # On the Raspberry Pi there is a bug where register reads don't send a
-        # repeated start condition like the kernel smbus I2C driver functions
-        # define.  As a workaround this bit in the BCM2708 driver sysfs tree can
-        # be changed to enable I2C repeated starts.
-        subprocess.check_call('chmod 666 /sys/module/i2c_bcm2708/parameters/combined', shell=True)
-        subprocess.check_call('echo -n 1 > /sys/module/i2c_bcm2708/parameters/combined', shell=True)
-    # Other platforms are a no-op because they (presumably) have the correct
-    # behavior and send repeated starts.
-
 
 class Device(object):
     """Class for communicating with an I2C device using the smbus library.
@@ -92,7 +55,7 @@ class Device(object):
         """Create an instance of the I2C device at the specified address on the
         specified I2C bus number."""
         self._address = address
-        self._bus = smbus.SMBus(busnum)
+        self._bus = bus
         self._logger = logging.getLogger('Adafruit_I2C.Device.Bus.{0}.Address.{1:#0X}' \
                                 .format(busnum, address))
 
