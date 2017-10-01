@@ -223,7 +223,7 @@ class SI1145(object):
                 # self.writeParam(SI1145_PARAM_ALSIRADCMUX, SI1145_PARAM_ADCMUX_SMALLIR)
 
                 # Fastest clocks, clock div 1
-                self.writeParam(SI1145_PARAM_ALSIRADCGAIN, 0)
+                # self.writeParam(SI1145_PARAM_ALSIRADCGAIN, 0)
 
                 # Take 511 clocks to measure
                 self.writeParam(SI1145_PARAM_ALSIRADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
