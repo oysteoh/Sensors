@@ -252,7 +252,7 @@ class SI1145(object):
 
         #returns visible + IR light levels
         def readVisible(self):
-                return self._device.readU16LE(0x23)
+                return self._device.readU16LE(0x22)
 
         #returns IR light levels
         def readIR(self):
