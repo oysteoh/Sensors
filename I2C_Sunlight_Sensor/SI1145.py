@@ -163,7 +163,7 @@ class SI1145(object):
                 self._reset()
 
                 # Load calibration values.
-                self._load_calibration()
+                # self._load_calibration()
 
         # device reset
         def _reset(self):
