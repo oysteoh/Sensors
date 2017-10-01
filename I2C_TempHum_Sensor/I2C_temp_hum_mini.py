@@ -42,7 +42,11 @@ import smbus
 
 debug = 0
 # use the bus that matches your raspi version
-bus = smbus.SMBus(1)
+rev = GPIO.RPI_REVISION
+if rev == 2 or rev == 3:
+    bus = smbus.SMBus(1)
+else:
+    bus = smbus.SMBus(0)
 
 class th02:
 	
@@ -73,7 +77,7 @@ class th02:
 		t_raw=bus.read_i2c_block_data(self.ADDRESS, self.TH02_REG_DATA_H,3)
 		if debug:
 			print(t_raw)
-		temperature = t_raw[0]<<16|t_raw[1]<<8|t_raw[2]
+		temperature = (t_raw[1]<<8|t_raw[2])>>2
 		return (temperature/32.0)-50.0
 		
 	def getHumidity(self):
