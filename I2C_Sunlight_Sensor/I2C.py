@@ -87,7 +87,7 @@ class Device(object):
     python smbus library, or other smbus compatible I2C interface. Allows reading
     and writing 8-bit, 16-bit, and byte array values to registers
     on the device."""
-    def __init__(self, address, busnum, i2c_interface=None):
+    def __init__(self, address, busnum, i2c_interface):
         """Create an instance of the I2C device at the specified address on the
         specified I2C bus number."""
         self._address = address
