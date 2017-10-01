@@ -241,7 +241,7 @@ class SI1145(object):
                 # self.writeParam(SI1145_PARAM_ALSVISADCMISC, SI1145_PARAM_ALSVISADCMISC_VISRANGE)
 
                 # measurement rate for auto
-                self._device.write8(SI1145_REG_MEASRATE0, 0xFF) # 255 * 31.25uS = 8ms
+                # self._device.write8(SI1145_REG_MEASRATE0, 0xFF) # 255 * 31.25uS = 8ms
 
                 # auto run
                 self._device.write8(SI1145_REG_COMMAND, SI1145_PSALS_AUTO)
