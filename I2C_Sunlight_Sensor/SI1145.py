@@ -163,7 +163,7 @@ class SI1145(object):
                 self._reset()
 
                 # Load calibration values.
-                # self._load_calibration()
+                self._load_calibration()
 
         # device reset
         def _reset(self):
@@ -200,51 +200,51 @@ class SI1145(object):
                 self.writeParam(SI1145_PARAM_CHLIST, SI1145_PARAM_CHLIST_ENUV | SI1145_PARAM_CHLIST_ENALSIR | SI1145_PARAM_CHLIST_ENALSVIS | SI1145_PARAM_CHLIST_ENPS1)
 
                 # Enable interrupt on every sample
-                self._device.write8(SI1145_REG_INTCFG, SI1145_REG_INTCFG_INTOE)
-                self._device.write8(SI1145_REG_IRQEN, SI1145_REG_IRQEN_ALSEVERYSAMPLE)
+                #self._device.write8(SI1145_REG_INTCFG, SI1145_REG_INTCFG_INTOE)
+                #self._device.write8(SI1145_REG_IRQEN, SI1145_REG_IRQEN_ALSEVERYSAMPLE)
 
                 # /****************************** Prox Sense 1 */
 
                 # Program LED current
-                self._device.write8(SI1145_REG_PSLED21, 0x03) # 20mA for LED 1 only
-                self.writeParam(SI1145_PARAM_PS1ADCMUX, SI1145_PARAM_ADCMUX_LARGEIR)
+                #self._device.write8(SI1145_REG_PSLED21, 0x03) # 20mA for LED 1 only
+                #self.writeParam(SI1145_PARAM_PS1ADCMUX, SI1145_PARAM_ADCMUX_LARGEIR)
 
                 # Prox sensor #1 uses LED #1
-                self.writeParam(SI1145_PARAM_PSLED12SEL, SI1145_PARAM_PSLED12SEL_PS1LED1)
+                #self.writeParam(SI1145_PARAM_PSLED12SEL, SI1145_PARAM_PSLED12SEL_PS1LED1)
 
                 # Fastest clocks, clock div 1
-                self.writeParam(SI1145_PARAM_PSADCGAIN, 0)
+                #self.writeParam(SI1145_PARAM_PSADCGAIN, 0)
 
                 # Take 511 clocks to measure
-                self.writeParam(SI1145_PARAM_PSADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
+                #self.writeParam(SI1145_PARAM_PSADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
 
                 # in prox mode, high range
-                self.writeParam(SI1145_PARAM_PSADCMISC, SI1145_PARAM_PSADCMISC_RANGE | SI1145_PARAM_PSADCMISC_PSMODE)
-                self.writeParam(SI1145_PARAM_ALSIRADCMUX, SI1145_PARAM_ADCMUX_SMALLIR)
+                #self.writeParam(SI1145_PARAM_PSADCMISC, SI1145_PARAM_PSADCMISC_RANGE | SI1145_PARAM_PSADCMISC_PSMODE)
+                #self.writeParam(SI1145_PARAM_ALSIRADCMUX, SI1145_PARAM_ADCMUX_SMALLIR)
 
                 # Fastest clocks, clock div 1
-                self.writeParam(SI1145_PARAM_ALSIRADCGAIN, 0)
+                #self.writeParam(SI1145_PARAM_ALSIRADCGAIN, 0)
 
                 # Take 511 clocks to measure
-                self.writeParam(SI1145_PARAM_ALSIRADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
+                #self.writeParam(SI1145_PARAM_ALSIRADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
 
                 # in high range mode
-                self.writeParam(SI1145_PARAM_ALSIRADCMISC, SI1145_PARAM_ALSIRADCMISC_RANGE)
+                #self.writeParam(SI1145_PARAM_ALSIRADCMISC, SI1145_PARAM_ALSIRADCMISC_RANGE)
 
                 # fastest clocks, clock div 1
-                self.writeParam(SI1145_PARAM_ALSVISADCGAIN, 0)
+                #self.writeParam(SI1145_PARAM_ALSVISADCGAIN, 0)
 
                 # Take 511 clocks to measure
-                self.writeParam(SI1145_PARAM_ALSVISADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
+                #self.writeParam(SI1145_PARAM_ALSVISADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
 
                 # in high range mode (not normal signal)
-                self.writeParam(SI1145_PARAM_ALSVISADCMISC, SI1145_PARAM_ALSVISADCMISC_VISRANGE)
+                #self.writeParam(SI1145_PARAM_ALSVISADCMISC, SI1145_PARAM_ALSVISADCMISC_VISRANGE)
 
                 # measurement rate for auto
-                self._device.write8(SI1145_REG_MEASRATE0, 0xFF) # 255 * 31.25uS = 8ms
+                #self._device.write8(SI1145_REG_MEASRATE0, 0xFF) # 255 * 31.25uS = 8ms
 
                 # auto run
-                self._device.write8(SI1145_REG_COMMAND, SI1145_PSALS_AUTO)
+                #self._device.write8(SI1145_REG_COMMAND, SI1145_PSALS_AUTO)
 
         # returns the UV index * 100 (divide by 100 to get the index)
         def readUV(self):
