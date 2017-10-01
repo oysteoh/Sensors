@@ -152,12 +152,12 @@ SI1145_REG_CHIPSTAT                     = 0x30
 SI1145_ADDR                             = 0x60
 
 class SI1145(object):
-        def __init__(self, address=SI1145_ADDR, busnum=I2C.get_default_bus()):
+        def __init__(self, address=SI1145_ADDR):
 
                 self._logger = logging.getLogger('SI1145')
 
                 # Create I2C device.
-                self._device = I2C.Device(address, busnum)
+                self._device = I2C.Device(address)
 
                 #reset device
                 self._reset()
