@@ -87,13 +87,17 @@ class Device(object):
     python smbus library, or other smbus compatible I2C interface. Allows reading
     and writing 8-bit, 16-bit, and byte array values to registers
     on the device."""
-    def __init__(self, address, busnum, i2c_interface):
+    def __init__(self, address, busnum, i2c_interface=None):
         """Create an instance of the I2C device at the specified address on the
         specified I2C bus number."""
         self._address = address
-       
-        # Otherwise use the provided class to create an smbus interface.
-        self._bus = i2c_interface(busnum)
+        if i2c_interface is None:
+            # Use pure python I2C interface if none is specified.
+            import Adafruit_PureIO.smbus
+            self._bus = Adafruit_PureIO.smbus.SMBus(busnum)
+        else:
+            # Otherwise use the provided class to create an smbus interface.
+            self._bus = i2c_interface(busnum)
         self._logger = logging.getLogger('Adafruit_I2C.Device.Bus.{0}.Address.{1:#0X}' \
                                 .format(busnum, address))
 
