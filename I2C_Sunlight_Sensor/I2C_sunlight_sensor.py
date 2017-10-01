@@ -235,7 +235,7 @@ class SI1145(object):
                 # self.writeParam(SI1145_PARAM_ALSVISADCGAIN, 0)
 
                 # Take 511 clocks to measure
-                self.writeParam(SI1145_PARAM_ALSVISADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
+                # self.writeParam(SI1145_PARAM_ALSVISADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
 
                 # in high range mode (not normal signal)
                 self.writeParam(SI1145_PARAM_ALSVISADCMISC, SI1145_PARAM_ALSVISADCMISC_VISRANGE)
