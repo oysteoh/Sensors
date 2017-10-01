@@ -41,9 +41,9 @@ print('Press Cntrl + Z to stop')
 print('')
 
 while True:
-        vis = sensor.readVisible()
-        IR = sensor.readIR()
-        UV = sensor.readUV()
+        vis = sensor.readVisible1()
+        IR = sensor.readIR1()
+        UV = sensor.readUV1()
         uvIndex = UV / 100.0
         print('Vis:             ' + str(vis))
         print('IR:              ' + str(IR))
