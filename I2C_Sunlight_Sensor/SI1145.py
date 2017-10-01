@@ -216,62 +216,48 @@ class SI1145(object):
                 self.writeParam(SI1145_PARAM_PSADCGAIN, 0)
 
                 # Take 511 clocks to measure
-                # self.writeParam(SI1145_PARAM_PSADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
+                self.writeParam(SI1145_PARAM_PSADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
 
                 # in prox mode, high range
-                # self.writeParam(SI1145_PARAM_PSADCMISC, SI1145_PARAM_PSADCMISC_RANGE | SI1145_PARAM_PSADCMISC_PSMODE)
-                # self.writeParam(SI1145_PARAM_ALSIRADCMUX, SI1145_PARAM_ADCMUX_SMALLIR)
+                self.writeParam(SI1145_PARAM_PSADCMISC, SI1145_PARAM_PSADCMISC_RANGE | SI1145_PARAM_PSADCMISC_PSMODE)
+                self.writeParam(SI1145_PARAM_ALSIRADCMUX, SI1145_PARAM_ADCMUX_SMALLIR)
 
                 # Fastest clocks, clock div 1
-                # self.writeParam(SI1145_PARAM_ALSIRADCGAIN, 0)
+                self.writeParam(SI1145_PARAM_ALSIRADCGAIN, 0)
 
                 # Take 511 clocks to measure
-                # self.writeParam(SI1145_PARAM_ALSIRADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
+                self.writeParam(SI1145_PARAM_ALSIRADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
 
                 # in high range mode
-                # self.writeParam(SI1145_PARAM_ALSIRADCMISC, SI1145_PARAM_ALSIRADCMISC_RANGE)
+                self.writeParam(SI1145_PARAM_ALSIRADCMISC, SI1145_PARAM_ALSIRADCMISC_RANGE)
 
                 # fastest clocks, clock div 1
-                # self.writeParam(SI1145_PARAM_ALSVISADCGAIN, 0)
+                self.writeParam(SI1145_PARAM_ALSVISADCGAIN, 0)
 
                 # Take 511 clocks to measure
-                # self.writeParam(SI1145_PARAM_ALSVISADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
+                self.writeParam(SI1145_PARAM_ALSVISADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
 
                 # in high range mode (not normal signal)
-                # self.writeParam(SI1145_PARAM_ALSVISADCMISC, SI1145_PARAM_ALSVISADCMISC_VISRANGE)
+                self.writeParam(SI1145_PARAM_ALSVISADCMISC, SI1145_PARAM_ALSVISADCMISC_VISRANGE)
 
                 # measurement rate for auto
-                # self._device.write8(SI1145_REG_MEASRATE0, 0xFF) # 255 * 31.25uS = 8ms
+                self._device.write8(SI1145_REG_MEASRATE0, 0xFF) # 255 * 31.25uS = 8ms
 
                 # auto run
-                # self._device.write8(SI1145_REG_COMMAND, SI1145_PSALS_AUTO)
+                self._device.write8(SI1145_REG_COMMAND, SI1145_PSALS_AUTO)
 
         # returns the UV index * 100 (divide by 100 to get the index)
-        def readUV0(self):
-                return self._device.readU16LE(SI1145_REG_UVINDEX0)
-
-        def readUV1(self):
-                return self._device.readU16LE(SI1145_REG_UVINDEX1)
+        def readUV(self):
+                return self._device.readU16LE(0x2C)
 
         #returns visible + IR light levels
-        def readVisible0(self):
-                return self._device.readU16LE(SI1145_REG_ALSVISDATA0)
-
-        def readVisible1(self):
-                return self._device.readU16LE(SI1145_REG_ALSVISDATA1)
+        def readVisible(self):
+                return self._device.readU16LE(0x22)
 
         #returns IR light levels
-        def readIR0(self):
-                return self._device.readU16LE(SI1145_REG_ALSIRDATA0)
-
-        #returns IR light levels
-        def readIR1(self):
-                return self._device.readU16LE(SI1145_REG_ALSIRDATA1)
+        def readIR(self):
+                return self._device.readU16LE(0x24)
 
         # Returns "Proximity" - assumes an IR LED is attached to LED
-        def readProx0(self):
-                return self._device.readU16LE(SI1145_REG_PS1DATA0)
-
-        # Returns "Proximity" - assumes an IR LED is attached to LED
-        def readProx1(self):
-                return self._device.readU16LE(SI1145_REG_PS1DATA1)
+        def readProx(self):
+                return self._device.readU16LE(0x26)

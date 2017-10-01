@@ -26,7 +26,7 @@
 #logging.basicConfig(level=logging.DEBUG)
 
 import time
-import I2C_sunlight_sensor
+import SI1145
 
 # Default constructor will pick a default I2C bus.
 #
@@ -35,15 +35,15 @@ import I2C_sunlight_sensor
 # on the Pi's revision.
 
 
-sensor = I2C_sunlight_sensor.SI1145()
+sensor = SI1145.SI1145()
 
 print('Press Cntrl + Z to stop')
 print('')
 
 while True:
-        vis = sensor.readVisible0()
-        IR = sensor.readIR0()
-        UV = sensor.readUV0()
+        vis = sensor.readVisible()
+        IR = sensor.readIR()
+        UV = sensor.readUV()
         uvIndex = UV / 100.0
         print('Vis:             ' + str(vis))
         print('IR:              ' + str(IR))
