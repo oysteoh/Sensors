@@ -168,12 +168,12 @@ class SI1145(object):
         # device reset
         def _reset(self):
                 self._device.write8(SI1145_REG_MEASRATE0, 0)
-                self._device.write8(SI1145_REG_MEASRATE1, 0)
+               # self._device.write8(SI1145_REG_MEASRATE1, 0)
                 self._device.write8(SI1145_REG_IRQEN, 0)
-                self._device.write8(SI1145_REG_IRQMODE1, 0)
-                self._device.write8(SI1145_REG_IRQMODE2, 0)
+               # self._device.write8(SI1145_REG_IRQMODE1, 0)
+               # self._device.write8(SI1145_REG_IRQMODE2, 0)
                 self._device.write8(SI1145_REG_INTCFG, 0)
-                self._device.write8(SI1145_REG_IRQSTAT, 0xFF)
+               # self._device.write8(SI1145_REG_IRQSTAT, 0xFF)
 
                 self._device.write8(SI1145_REG_COMMAND, SI1145_RESET)
                 time.sleep(.01)
@@ -248,30 +248,30 @@ class SI1145(object):
 
         # returns the UV index * 100 (divide by 100 to get the index)
         def readUV0(self):
-                return self._device.readU16LE(0x2C)
+                return self._device.readU16LE(SI1145_REG_UVINDEX0)
 
         def readUV1(self):
-                return self._device.readU16LE(0x2D)
+                return self._device.readU16LE(SI1145_REG_UVINDEX1)
 
         #returns visible + IR light levels
         def readVisible0(self):
-                return self._device.readU16LE(0x22)
+                return self._device.readU16LE(SI1145_REG_ALSVISDATA0)
 
         def readVisible1(self):
-                return self._device.readU16LE(0x23)
+                return self._device.readU16LE(SI1145_REG_ALSVISDATA1)
 
         #returns IR light levels
         def readIR0(self):
-                return self._device.readU16LE(0x24)
+                return self._device.readU16LE(SI1145_REG_ALSIRDATA0)
 
         #returns IR light levels
         def readIR1(self):
-                return self._device.readU16LE(0x25)
+                return self._device.readU16LE(SI1145_REG_ALSIRDATA1)
 
         # Returns "Proximity" - assumes an IR LED is attached to LED
         def readProx0(self):
-                return self._device.readU16LE(0x26)
+                return self._device.readU16LE(SI1145_REG_PS1DATA0)
 
         # Returns "Proximity" - assumes an IR LED is attached to LED
         def readProx1(self):
-                return self._device.readU16LE(0x27)
+                return self._device.readU16LE(SI1145_REG_PS1DATA1)
