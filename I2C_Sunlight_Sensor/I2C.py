@@ -40,24 +40,22 @@ def reverseByteOrder(data):
         data >>= 8
     return val
 
-def get_i2c_device(address, busnum=None, **kwargs):
+def get_i2c_device(address, **kwargs):
     """Return an I2C device for the specified address and on the specified bus.
     If busnum isn't specified, the default I2C bus for the platform will attempt
     to be detected.
     """    
-    return Device(address, busnum, **kwargs)
+    return Device(address, **kwargs)
 
 class Device(object):
     """Class for communicating with an I2C device using the smbus library.
     Allows reading and writing 8-bit, 16-bit, and byte array values to registers
     on the device."""
-    def __init__(self, address, busnum):
+    def __init__(self, address):
         """Create an instance of the I2C device at the specified address on the
         specified I2C bus number."""
         self._address = address
-        self._bus = bus
-        self._logger = logging.getLogger('Adafruit_I2C.Device.Bus.{0}.Address.{1:#0X}' \
-                                .format(busnum, address))
+        self._bus = bus       
 
     def writeRaw8(self, value):
         """Write an 8-bit value on the bus (without register)."""
