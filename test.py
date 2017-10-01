@@ -38,8 +38,8 @@ THE SOFTWARE.
 # NOTE:
 # The software for this sensor is still in development and might make your GrovePi unuable as long as this sensor is connected with the GrovePi
 #################################################################################################################################################
-from I2C_TempHum_Sensor import I2C_temp_hum_mini
-from I2C_Barometer_Sensor import hp206c
+from I2C_TempHum_Sensor.I2C_temp_hum_mini import I2C_temp_hum_mini
+from I2C_Barometer_Sensor.hp206c import hp206c
 import time
 
 
