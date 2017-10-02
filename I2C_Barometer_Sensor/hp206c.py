@@ -39,16 +39,7 @@ import RPi.GPIO as GPIO
 import smbus
 import I2C as I2C
 
-# use the bus that matches your raspi version
-rev = GPIO.RPI_REVISION
-if rev == 2 or rev == 3:
-    bus = smbus.SMBus(1)
-else:
-    bus = smbus.SMBus(0)
-
 class hp206c:
-	address = None
-
 	HP20X_I2C_DEV_ID       =(0xEC)>>1    #CSB PIN is VDD level(address is 0x76)
 	HP20X_I2C_DEV_ID2      =(0XEE)>>1    #CSB PIN is GND level(address is 0x77)
 	HP20X_SOFT_RST         =0x06
@@ -101,7 +92,6 @@ class hp206c:
 	OSR_ConvertTime = 25
 	
 	def __init__(self,address=0x76):
-		self._address=address
 		self._device = I2C.Device(address, I2C.get_default_bus())
 		self.HP20X_IIC_WriteCmd(self.HP20X_SOFT_RST)
 		time.sleep(.1)
