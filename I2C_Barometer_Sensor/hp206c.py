@@ -137,11 +137,11 @@ class hp206c:
 		return a/100.0
 		
 	def HP20X_IIC_WriteCmd(self,uCmd):
-		self._device.writeRaw8(uCmd)
+		self._device.write8(uCmd)
 		
 	def HP20X_IIC_ReadReg(self, bReg):
 		# self.HP20X_IIC_WriteCmd(bReg|self.HP20X_RD_REG_MODE)
-		return self._device.readU8(bReg|self.HP20X_RD_REG_MODE)
+		return bus.read_byte_data(self._address, bReg|self.HP20X_RD_REG_MODE)
 
 if __name__ == "__main__":	
 	h= hp206c()
