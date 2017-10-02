@@ -35,8 +35,6 @@ THE SOFTWARE.
 '''
 
 import time,sys
-import RPi.GPIO as GPIO
-import smbus
 import I2C as I2C
 
 class hp206c:
