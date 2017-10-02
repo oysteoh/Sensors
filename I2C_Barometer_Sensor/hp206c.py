@@ -37,6 +37,7 @@ THE SOFTWARE.
 import time,sys
 import RPi.GPIO as GPIO
 import smbus
+import I2C as I2C
 
 # use the bus that matches your raspi version
 rev = GPIO.RPI_REVISION
@@ -102,6 +103,7 @@ class hp206c:
 	def __init__(self,address=0x76):
 		self.address=address
 		self.HP20X_IIC_WriteCmd(self.HP20X_SOFT_RST)
+		self._device = I2C.Device(address, I2C.get_default_bus())
 		time.sleep(.1)
 	
 	def isAvailable(self):
@@ -110,7 +112,7 @@ class hp206c:
 	def ReadTemperature(self):
 		self.HP20X_IIC_WriteCmd(self.HP20X_WR_CONVERT_CMD|self.OSR_CFG)
 		time.sleep(self.OSR_ConvertTime/1000.0)
-		t_raw = bus.read_i2c_block_data(self.address, self.HP20X_READ_T, 3)
+		t_raw = self._device.readList(self.address, self.HP20X_READ_T, 3)
 		t=t_raw[0]<<16|t_raw[1]<<8|t_raw[2]
 		if t&0x800000:
 			t|=0xff000000;
