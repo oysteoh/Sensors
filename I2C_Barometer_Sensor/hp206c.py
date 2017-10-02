@@ -121,7 +121,7 @@ class hp206c:
 	def ReadPressure(self):
 		self.HP20X_IIC_WriteCmd(self.HP20X_WR_CONVERT_CMD|self.OSR_CFG)
 		time.sleep(self.OSR_ConvertTime/1000.0)
-		p_raw = bus.read_i2c_block_data(self._address, self.HP20X_READ_P, 3)
+		p_raw = self._device.readList(self.HP20X_READ_P, 3)
 		p=p_raw[0]<<16|p_raw[1]<<8|p_raw[2]
 		if p&0x800000:
 			p|=0xff000000;
@@ -130,7 +130,7 @@ class hp206c:
 	def ReadAltitude(self):
 		self.HP20X_IIC_WriteCmd(self.HP20X_WR_CONVERT_CMD|self.OSR_CFG)
 		time.sleep(self.OSR_ConvertTime/1000.0)
-		a_raw = bus.read_i2c_block_data(self._address, self.HP20X_READ_A, 3)
+		a_raw = self._device.readList(self.HP20X_READ_A, 3)
 		a=a_raw[0]<<16|a_raw[1]<<8|a_raw[2]
 		if a&0x800000:
 			a|=0xff000000;
