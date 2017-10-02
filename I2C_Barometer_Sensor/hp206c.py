@@ -112,7 +112,7 @@ class hp206c:
 	def ReadTemperature(self):
 		self.HP20X_IIC_WriteCmd(self.HP20X_WR_CONVERT_CMD|self.OSR_CFG)
 		time.sleep(self.OSR_ConvertTime/1000.0)
-		t_raw = self._device.readList(self, self.HP20X_READ_T, 3)
+		t_raw = self._device.readList(self.HP20X_READ_T, 3)
 		t=t_raw[0]<<16|t_raw[1]<<8|t_raw[2]
 		if t&0x800000:
 			t|=0xff000000;
