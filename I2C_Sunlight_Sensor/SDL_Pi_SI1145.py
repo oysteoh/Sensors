@@ -218,7 +218,8 @@ class SDL_Pi_SI1145(object):
                 self.writeParam(SI1145_PARAM_PSADCGAIN, 0)
 
                 # Take 511 clocks to measure
-                # not working self.writeParam(SI1145_PARAM_PSADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
+                # not working 
+                self.writeParam(SI1145_PARAM_PSADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
 
                 # in prox mode, high range
                 # not working self.writeParam(SI1145_PARAM_PSADCMISC, SI1145_PARAM_PSADCMISC_RANGE | SI1145_PARAM_PSADCMISC_PSMODE)
@@ -250,7 +251,7 @@ class SDL_Pi_SI1145(object):
                 # not working self._device.write8(SI1145_REG_MEASRATE0, 0xFF) # 255 * 31.25uS = 8ms
 
                 # auto run
-                self._device.writeRaw8(SI1145_REG_COMMAND, SI1145_PSALS_AUTO)
+                # not working self._device.write8(SI1145_REG_COMMAND, SI1145_PSALS_AUTO)
 
         # returns the UV index * 100 (divide by 100 to get the index)
         def readUV(self):
