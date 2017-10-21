@@ -232,7 +232,7 @@ class SDL_Pi_SI1145(object):
                 # not working self.writeParam(SI1145_PARAM_ALSIRADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
 
                 # in high range mode
-                self.writeParam(SI1145_PARAM_ALSIRADCMISC, 0)
+                # not working self.writeParam(SI1145_PARAM_ALSIRADCMISC, 0)
                 #self.writeParam(SI1145_PARAM_ALSIRADCMISC, SI1145_PARAM_ALSIRADCMISC_RANGE)
 
                 # fastest clocks, clock div 1
