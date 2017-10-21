@@ -31,7 +31,10 @@ def platform_detect():
     return RASPBERRY_PI
 
 def pi_revision():
+    #return 1
     return 2
 
 def pi_version():
+    #return 1    
+    #return 2
     return 3
