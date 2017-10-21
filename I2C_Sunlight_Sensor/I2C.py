@@ -21,6 +21,7 @@
 # THE SOFTWARE.
 import logging
 import subprocess
+import SMBus as smbus
 
 import Platform as Platform
 
@@ -76,8 +77,12 @@ class Device(object):
         """Create an instance of the I2C device at the specified address on the
         specified I2C bus number."""
         self._address = address
-        
-        self._bus = i2c_interface(busnum)
+        if i2c_interface is None:
+            # Use pure python I2C interface if none is specified.
+            self._bus = smbus.SMBus(busnum)
+        else:
+            # Otherwise use the provided class to create an smbus interface.
+            self._bus = i2c_interface(busnum)
         self._logger = logging.getLogger('Adafruit_I2C.Device.Bus.{0}.Address.{1:#0X}' \
                                 .format(busnum, address))
 
