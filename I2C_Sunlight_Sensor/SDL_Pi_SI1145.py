@@ -26,7 +26,8 @@ import logging
 import time
 
 import I2C as I2C
-class SDL_Pi_SI1145(object):
+class SDL_Pi_SI1145:
+        
         # COMMANDS
         SI1145_PARAM_QUERY                      = 0x80
         SI1145_PARAM_SET                        = 0xA0
