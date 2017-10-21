@@ -184,8 +184,8 @@ class SDL_Pi_SI1145(object):
 
         # write Param
         def writeParam(self, p, v):
-                self._device.writeRaw8(SI1145_REG_PARAMWR, v)
-                self._device.writeRaw8(SI1145_REG_COMMAND, p | SI1145_PARAM_SET)
+                self._device.write8(SI1145_REG_PARAMWR, v)
+                self._device.write8(SI1145_REG_COMMAND, p | SI1145_PARAM_SET)
                 paramVal = self._device.readU8(SI1145_REG_PARAMRD)
                 return paramVal
 
