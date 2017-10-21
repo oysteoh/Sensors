@@ -169,17 +169,17 @@ class SDL_Pi_SI1145(object):
 
         # device reset
         def _reset(self):
-                self._device.writeRaw8(SI1145_REG_MEASRATE0, 0)
-                self._device.writeRaw8(SI1145_REG_MEASRATE1, 0)
-                self._device.writeRaw8(SI1145_REG_IRQEN, 0)
-                self._device.writeRaw8(SI1145_REG_IRQMODE1, 0)
-                self._device.writeRaw8(SI1145_REG_IRQMODE2, 0)
-                self._device.writeRaw8(SI1145_REG_INTCFG, 0)
-                self._device.writeRaw8(SI1145_REG_IRQSTAT, 0xFF)
+                self._device.write8(SI1145_REG_MEASRATE0, 0)
+                self._device.write8(SI1145_REG_MEASRATE1, 0)
+                self._device.write8(SI1145_REG_IRQEN, 0)
+                self._device.write8(SI1145_REG_IRQMODE1, 0)
+                self._device.write8(SI1145_REG_IRQMODE2, 0)
+                self._device.write8(SI1145_REG_INTCFG, 0)
+                self._device.write8(SI1145_REG_IRQSTAT, 0xFF)
 
-                self._device.writeRaw8(SI1145_REG_COMMAND, SI1145_RESET)
+                self._device.write8(SI1145_REG_COMMAND, SI1145_RESET)
                 time.sleep(.01)
-                self._device.writeRaw8(SI1145_REG_HWKEY, 0x17)
+                self._device.write8(SI1145_REG_HWKEY, 0x17)
                 time.sleep(.01)
 
         # write Param
