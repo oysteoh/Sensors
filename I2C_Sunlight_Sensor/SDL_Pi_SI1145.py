@@ -250,7 +250,7 @@ class SDL_Pi_SI1145(object):
                 # not working self._device.write8(SI1145_REG_MEASRATE0, 0xFF) # 255 * 31.25uS = 8ms
 
                 # auto run
-                # not working self._device.write8(SI1145_REG_COMMAND, SI1145_PSALS_AUTO)
+                not working self.writeParam(SI1145_REG_COMMAND, SI1145_PSALS_AUTO)
 
         # returns the UV index * 100 (divide by 100 to get the index)
         def readUV(self):
