@@ -91,6 +91,7 @@ class hp206c:
 	
 	def __init__(self,address=0x76):
 		self._device = I2C.Device(address, I2C.get_default_bus())
+		#Soft reset
 		self.HP20X_IIC_WriteCmd(self.HP20X_SOFT_RST)
 		time.sleep(.1)
 	
