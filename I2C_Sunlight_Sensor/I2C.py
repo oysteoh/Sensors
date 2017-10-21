@@ -21,7 +21,6 @@
 # THE SOFTWARE.
 import logging
 import subprocess
-import smbus
 
 import Platform as Platform
 
@@ -79,6 +78,7 @@ class Device(object):
         self._address = address
         if i2c_interface is None:
             # Use pure python I2C interface if none is specified.
+            import smbus
             self._bus = smbus.SMBus(busnum)
         else:
             # Otherwise use the provided class to create an smbus interface.
