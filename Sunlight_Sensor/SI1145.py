@@ -160,10 +160,10 @@ class SI1145(object):
                 self._device = I2C.Device(address, I2C.get_default_bus())
 
                 #reset device
-                self._reset()
+                #self._reset()
 
                 # Load calibration values.
-                self._load_calibration()
+                #self._load_calibration()
 
         # device reset
         def _reset(self):
