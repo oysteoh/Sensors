@@ -36,5 +36,5 @@ def pi_revision():
 
 def pi_version():
     #return 1    
-    #return 2
-    return 3
+    return 2
+    #return 3
