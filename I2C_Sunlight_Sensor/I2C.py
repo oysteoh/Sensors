@@ -21,7 +21,7 @@
 # THE SOFTWARE.
 import logging
 import subprocess
-import SMBus as smbus
+import smbus
 
 import Platform as Platform
 
