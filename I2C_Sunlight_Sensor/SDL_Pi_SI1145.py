@@ -237,7 +237,7 @@ class SDL_Pi_SI1145(object):
 
                 # fastest clocks, clock div 1
                 #self.writeParam(SI1145_PARAM_ALSVISADCGAIN, 0)
-                self.writeParam(SI1145_PARAM_ALSVISADCGAIN, 4)
+                # not working self.writeParam(SI1145_PARAM_ALSVISADCGAIN, 4)
 
                 # Take 511 clocks to measure
                 self.writeParam(SI1145_PARAM_ALSVISADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
