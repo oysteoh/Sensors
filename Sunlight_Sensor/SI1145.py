@@ -25,7 +25,7 @@
 import logging
 import time
 
-import I2C
+import I2C as I2C
 
 # COMMANDS
 SI1145_PARAM_QUERY                      = 0x80
