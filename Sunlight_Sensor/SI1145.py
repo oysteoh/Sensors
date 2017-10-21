@@ -152,7 +152,7 @@ SI1145_REG_CHIPSTAT                     = 0x30
 SI1145_ADDR                             = 0x60
 
 class SI1145(object):
-        def __init__(self, address=SI1145_ADDR):
+        def __init__(self, address=SI1145_ADDR, busnum=I2C.get_default_bus()):
 
                 self._logger = logging.getLogger('SI1145')
 
