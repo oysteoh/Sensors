@@ -218,7 +218,7 @@ class SDL_Pi_SI1145(object):
                 self.writeParam(SI1145_PARAM_PSADCGAIN, 0)
 
                 # Take 511 clocks to measure
-                self.writeParam(SI1145_PARAM_PSADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
+                # not working self.writeParam(SI1145_PARAM_PSADCOUNTER, SI1145_PARAM_ADCCOUNTER_511CLK)
 
                 # in prox mode, high range
                 self.writeParam(SI1145_PARAM_PSADCMISC, SI1145_PARAM_PSADCMISC_RANGE | SI1145_PARAM_PSADCMISC_PSMODE)
